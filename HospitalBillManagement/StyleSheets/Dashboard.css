@@ -1,0 +1,83 @@
+﻿.form-content {
+    margin: 40px 200px;
+    border: 2px solid lightgrey;
+    border-radius:2px;
+    padding:10px 30px;
+}
+
+.heading{
+    color:skyblue;
+    text-decoration:underline;
+    text-align:center;
+}
+
+.row-content{
+    margin-top:20px;
+}
+
+.field-labels{
+    color:orangered;
+    font:normal 30px;
+}
+
+.lbl_BillNo {
+    margin-left: 50px;
+}
+
+.lbl_BillDate {
+    margin-left: 180px;
+}
+
+.lbl_PatientName {
+    margin-left: 15px;
+}
+
+.lbl_Gender {
+    margin-left: 55px;
+}
+
+.lbl_DateOfBirth {
+    margin-left: 55px;
+}
+
+.lbl_Address {
+    margin-left: 45px;
+    padding-bottom:5px;
+}
+
+.lbl_Email {
+    margin-left: 10px;
+}
+
+.lbl_MobileNumber {
+    margin-left: 10px;
+}
+
+.lbl_Investigation {
+    margin-left: 15px;
+}
+
+.lbl_Fee {
+    margin-left: 45px;
+}
+
+.btn_AddToGrid {
+    margin-left: 45px;
+    color:white;
+}
+
+.gv_PatientBillsData{
+    width:800px;
+    margin-left:225px;
+
+}
+
+/*CSS to change the header*/
+.gv_PatientBillsData th {
+    color: black;
+    background-color: lightblue;
+}
+/* CSS to change the GridLines color */
+.gv_PatientBillsData, .gv_PatientBillsData th, .gv_PatientBillsData td {
+    border: 2px solid black;
+}
