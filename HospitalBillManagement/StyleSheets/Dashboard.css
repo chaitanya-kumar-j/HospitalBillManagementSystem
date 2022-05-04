@@ -1,8 +1,12 @@
-﻿.form-content {
-    margin: 40px 200px;
+﻿.full-content {
+    margin: 20px 200px;
     border: 2px solid lightgrey;
     border-radius:2px;
     padding:10px 30px;
+}
+
+.form-content {
+    margin: 15px 200px;
 }
 
 .heading{
@@ -66,18 +70,30 @@
     color:white;
 }
 
-.gv_PatientBillsData{
-    width:800px;
-    margin-left:225px;
+.pnl_GridView {
+    margin-left: 110px
+}
 
+/*CSS to total GridView*/
+.gv_PatientBillsData {
+    width: 1020px;
 }
 
 /*CSS to change the header*/
-.gv_PatientBillsData th {
-    color: black;
-    background-color: lightblue;
-}
+    .gv_PatientBillsData th {
+        color: black;
+        background-color: #77A2E0;
+    }
 /* CSS to change the GridLines color */
 .gv_PatientBillsData, .gv_PatientBillsData th, .gv_PatientBillsData td {
     border: 2px solid black;
+}
+
+.bottom-btn {
+    margin-top: 20px;
+    margin-right: 40px;
+}
+
+.btn_Add {
+    margin-left: 400px;
 }

@@ -28,16 +28,42 @@ namespace HospitalBillManagement.WebForms
                 SqlCommand cmd = new SqlCommand("spLoadGridView", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
-                SqlDataReader dataReader = cmd.ExecuteReader();
+                //SqlDataReader dataReader = cmd.ExecuteReader();
 
-                gv_PatientBillsData.DataSource = dataReader;
+                //gv_PatientBillsData.DataSource = dataReader;
+
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                sqlDataAdapter.Fill(dataTable);
+                //cmd.Connection = con;
+                //cmd.Connection.Open();
+                gv_PatientBillsData.DataSource = dataTable;
                 gv_PatientBillsData.DataBind();
             }
         }
 
+        protected void gv_PatientBillsData_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gv_PatientBillsData.PageIndex = e.NewPageIndex;
+            LoadGridView();
+        }
+
         protected void txt_PatientName_TextChanged(object sender, EventArgs e)
         {
-            
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("spGetPatientDetails", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader dataReader = cmd.ExecuteReader();
+
+                if (dataReader.HasRows)
+                {
+                    ddl_Gender.SelectedValue = (string)dataReader.GetValue(dataReader.GetOrdinal("Gender"));
+                    txt_DateOfBirth.Text = (string)dataReader.GetValue(dataReader.GetOrdinal("DateOfBirth"));
+
+                }
+            }
         }
 
         protected void gv_PatientBillsData_RowEditing(object sender, GridViewEditEventArgs e)
@@ -86,13 +112,16 @@ namespace HospitalBillManagement.WebForms
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@BillNumber", Convert.ToInt32(gv_PatientBillsData.DataKeys[e.RowIndex].Value));
                     cmd.Parameters.AddWithValue("@PatientName", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("txt_PatintNameEdit") as TextBox).Text.Trim());
-                    cmd.Parameters.AddWithValue("@PatientName", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("txt_PatintNameEdit") as TextBox).Text.Trim());
-                    cmd.Parameters.AddWithValue("@PatientName", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("txt_PatintNameEdit") as TextBox).Text.Trim());
-                    cmd.Parameters.AddWithValue("@PatientName", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("txt_PatintNameEdit") as TextBox).Text.Trim());
-                    cmd.Parameters.AddWithValue("@PatientName", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("txt_PatintNameEdit") as TextBox).Text.Trim());
+                    cmd.Parameters.AddWithValue("@Gender", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("txt_PatintNameEdit") as TextBox).Text.Trim());
+                    cmd.Parameters.AddWithValue("@DateOfBirth", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("txt_DateOfBirthEdit") as TextBox).Text.Trim());
+                    cmd.Parameters.AddWithValue("@Address", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("txt_AddressEdit") as TextBox).Text.Trim());
+                    cmd.Parameters.AddWithValue("@Email", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("txt_EmailEdit") as TextBox).Text.Trim());
+                    cmd.Parameters.AddWithValue("@MobileNumber", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("txt_MobileNumberEdit") as TextBox).Text.Trim());
+                    cmd.Parameters.AddWithValue("@Investigation", (gv_PatientBillsData.Rows[e.RowIndex].FindControl("ddl_InvestigationsEdit") as TextBox).Text.Trim());
+                    cmd.Parameters.AddWithValue("@Fee", 4000);
                     con.Open();
                     var result = cmd.ExecuteNonQuery();
-                    if (result != 1)
+                    if (result != 0)
                     {
                         throw new Exception("updation failed");
                     }
@@ -130,6 +159,7 @@ namespace HospitalBillManagement.WebForms
                 LoadGridView();
             }
         }
-            
+
+        
     }
 }
